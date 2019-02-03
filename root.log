@@ -1,0 +1,50 @@
+#!/bin/bash
+apt-get --yes --force-yes update
+apt-get --yes --force-yes install kde-standard
+echo "deb http://ftp.debian.org/debian stretch-backports main" | tee -a /etc/apt/sources.list > /dev/null
+apt-get --yes --force-yes update
+apt-get --yes --force-yes upgrade
+apt-get --yes --force-yes dist-upgrade
+apt-get --yes --force-yes -t stretch-backports upgrade
+apt-get --yes --force-yes -t stretch-backports install linux-image-4.19.0-0.bpo.1-amd64
+#apt-get --yes --force-yes remove linux-image-4.9.0-8-amd64
+apt-get --yes --force-yes install iceweasel
+apt-get --yes --force-yes -t stretch-backports install linux-headers-4.19.0-0.bpo.1-amd64
+apt-get --yes --force-yes -t stretch-backports install linux-base
+apt-get --yes --force-yes install debhelper
+apt-get --yes --force-yes install cmake
+apt-get --yes --force-yes install libllvm3.8
+apt-get --yes --force-yes install llvm-3.8-dev
+apt-get --yes --force-yes install libclang-3.8-dev
+apt-get --yes --force-yes install libelf-dev bison
+apt-get --yes --force-yes install flex
+apt-get --yes --force-yes install libedit-dev
+apt-get --yes --force-yes install clang-format-3.8
+apt-get --yes --force-yes install python
+apt-get --yes --force-yes install python-netaddr
+apt-get --yes --force-yes install python-pyroute2
+apt-get --yes --force-yes install luajit
+apt-get --yes --force-yes install libluajit-5.1-dev
+apt-get --yes --force-yes install arping
+apt-get --yes --force-yes install iperf
+apt-get --yes --force-yes install netperf
+apt-get --yes --force-yes install ethtool
+apt-get --yes --force-yes install devscripts
+apt-get --yes --force-yes install zlib1g-dev
+apt-get --yes --force-yes install libfl-dev
+apt-get --yes --force-yes install sudo
+echo "build-user ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers.d/build-user
+apt-get --yes --force-yes install git
+apt-get --yes --force-yes install quilt
+apt-get --yes --force-yes install build-essential
+apt-get --yes --force-yes install fakeroot
+apt-get --yes --force-yes install build-dep
+apt-get --yes --force-yes install debian-installer
+apt-get --yes --force-yes install grep-dctrl
+apt-get --yes --force-yes install debiandoc-sgml
+apt-get --yes --force-yes install libclang-dev
+apt-get --yes --force-yes install llvm-3.8-dev
+#mk-build-deps
+#dpkg-checkbuilddeps 2>&1 | sed 's/dpkg-checkbuilddeps:\serror:\sUnmet build dependencies: //g' | sed 's/[\(][^)]*[\)] //g'
+adduser build-user
+su -c "sudo git clone https://github.com/iovisor/bcc.git;cd bcc;sudo debuild -b -uc -us;cd ..;sudo dpkg -i *bcc*.deb;" - build-user
