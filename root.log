@@ -54,16 +54,18 @@ apt-get --yes --force-yes install libedit-dev libbsd-dev
 apt-get --yes --force-yes install zlib1g-dev
 apt-get --yes --force-yes install python-netaddr python-pyroute2 luajit libluajit-5.1-dev arping inetutils-ping
 apt-get --yes --force-yes install iperf ethtool
-apt-get --yes --force-yes install python2-bcc
+#apt-get --yes --force-yes install python2-bcc
 #deb http://ftp.us.debian.org/debian stretch main contrib non-free > netperf
 apt-get --yes --force-yes install netperf
 git clone https://github.com/iovisor/bcc
 cd bcc
-mkdir build; cd build
+mkdir build
+cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 make
 make install
-
+MANPATH=/usr/share/bcc/man:$MANPATH
+PATH=/usr/share/bcc/tools:$PATH
 #mk-build-deps
 #dpkg-checkbuilddeps 2>&1 | sed 's/dpkg-checkbuilddeps:\serror:\sUnmet build dependencies: //g' | sed 's/[\(][^)]*[\)] //g'
 adduser build-user
