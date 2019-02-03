@@ -1,6 +1,7 @@
 #!/bin/bash
 apt-get --yes --force-yes update
 apt-get --yes --force-yes install kde-standard
+echo "deb http://ftp.debian.org/debian stretch-backports main contrib non-free" > /etc/apt/sources.list
 echo "deb http://ftp.debian.org/debian stretch-backports main" | tee -a /etc/apt/sources.list > /dev/null
 apt-get --yes --force-yes update
 apt-get --yes --force-yes upgrade
@@ -44,6 +45,17 @@ apt-get --yes --force-yes install grep-dctrl
 apt-get --yes --force-yes install debiandoc-sgml
 apt-get --yes --force-yes install libclang-dev
 apt-get --yes --force-yes install llvm-3.8-dev
+apt-get --yes --force-yes install clang-format
+apt-get --yes --force-yes install libelf-dev
+apt-get --yes --force-yes install bison
+apt-get --yes --force-yes install flex
+apt-get --yes --force-yes install libfl-dev
+apt-get --yes --force-yes install libedit-dev libbsd-dev
+apt-get --yes --force-yes install zlib1g-dev
+apt-get --yes --force-yes install python-netaddr python-pyroute2 luajit libluajit-5.1-dev arping inetutils-ping
+apt-get --yes --force-yes install iperf ethtool
+#deb http://ftp.us.debian.org/debian stretch main contrib non-free > netperf
+apt-get --yes --force-yes install netperf
 #mk-build-deps
 #dpkg-checkbuilddeps 2>&1 | sed 's/dpkg-checkbuilddeps:\serror:\sUnmet build dependencies: //g' | sed 's/[\(][^)]*[\)] //g'
 adduser build-user
